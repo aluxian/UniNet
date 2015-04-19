@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  block link
+    -var selected = 'Conversations';
+    
+  if partner
+    script var partnerUser = !{JSON.stringify(partner)}
+    
+  .row(ng-controller='ConversationMessagesCtrl')
+    .col-sm-3
+      include partials/side-nav
+    .col-sm-6
+      .conversation-body.panel.panel-default.top-offset
+        .panel-body
+          .conversation-messages
+            p.text-center(ng-if='!messages.length') There are no messages.
+            .message.clearfix(ng-repeat='message in messages')
+              .media(ng-class="{ 'pull-left': message.sender != '#{user._id}', 'pull-right': message.sender == '#{user._id}' }")
+                .media-left
+                  img.media-object(src='#{user.profile.picture}' ng-if="message.sender == '#{user._id}' && user.profile.picture")
+                  img.media-object(src='#{user.gravatar(60)}' ng-if="message.sender == '#{user._id}' && !user.profile.picture")
+                  img.media-object(src='#{user.profile.picture}' ng-if="message.sender != '#{user._id}' && partner.profile.picture")
+                  img.media-object(src='#{user.gravatar(60)}' ng-if="message.sender != '#{user._id}' && !partner.profile.picture")
+                .media-body.media-middle.text-left
+                  span {{message.body}}
+          hr
+          form.row.input-form
+            .col-md-12
+              textarea.send(placeholder='Message' rows='2' ng-model='msg' required)
+              button.send.btn.btn.btn-primary(type='submit' ng-click='send($event)') Send
+    .col-sm-3
+      .conversation-side.panel.panel-default.top-offset
+        .panel-body
+          input(type='text' id='conversationSearchUserField' placeholder='Search someone')
+          if conversations.length > 0
+            each conversation in conversations
+              if conversation.users[0]._id == user._id
+                p.user-conversation.active #{conversation.users[0].profile.name}
+              else if conversation.users[1]._id == user._id
+                p.user-conversation.active #{conversation.users[1].profile.name}
+              else
+                p.user-conversation #{conversation.users[1].profile.name}
+          else
+            p.top-offset.text-center No conversations.
+
+
+
+
+extends layout
+
+block content
+  block link
+    -var selected = 'Conversations';
+    
+  script var partnerUser = !{JSON.stringify(partner)}
+    
+  .row(ng-app='app' ng-controller='ConversationMessagesCtrl')
+    .col-sm-3
+      include partials/side-nav
+    
+    .col-sm-3
+      .conversation-side.panel.panel-default.top-offset
+        .panel-body
+          input(type='text' id='conversationSearchUserField' placeholder='Search someone')
+          if conversations.length > 0
+            each conversation in conversations
+              if conversation.users[0]._id == user._id || conversation.users[1]._id == user._id
+                p.user-conversation.active #{conversation.users[1].profile.name}
+              else
+                p.user-conversation #{conversation.users[1].profile.name}
+          else
+            p.top-offset.text-center No conversations.

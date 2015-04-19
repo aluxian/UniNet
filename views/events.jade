@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  block link
+    -var selected = 'Social Events';
+  
+  .row
+    .col-sm-3
+      include partials/side-nav
+    .col-sm-6
+      include partials/events-body
+    .col-sm-3 
+      include partials/side-chat

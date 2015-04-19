@@ -1,0 +1,43 @@
+.events-body
+  .panel.panel-default
+    .panel-body
+      h4 Write a new event
+
+      form.post-form.form-horizontal(action='/events' method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        fieldset
+          .form-group
+            .col-md-12
+              input.form-control(type='text' name='name' placeholder='Name' required)
+          .form-group
+            .col-md-12
+              textarea.form-control(rows='2' id='textArea' name='body' placeholder='Description' required)
+          .row
+            .col-sm-9
+              label(for='type')
+                | Event Type
+                select(name='type', id='type' required)
+                  option(value='Party') Party
+                  option(value='Other') Other
+            .col-sm-3
+              button.pull-right.btn.btn-success(type='submit') Submit
+
+  if events.length > 0
+    each event in events
+       .panel.panel-default.post-card
+          .panel-body
+            .media
+              .media-left
+                a(href='#')
+                  if user.profile.picture
+                    img.media-object(src='#{event.author.profile.picture}')
+                  else
+                    img.media-object(src='#{event.author.gravatar(60)}')
+              .media-body.media-middle
+                h4.media-heading #{event.author.profile.name}
+                h6 #{event.createdAt}
+                h6 #{event.faculty.name}
+            h3 #{event.name}
+            p #{event.body}
+  else
+    p.top-offset.text-center No events available.

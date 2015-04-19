@@ -1,0 +1,23 @@
+extends ../simple-layout
+
+block content
+  .login-body.container.small-container
+    .panel.panel-default.post-card
+      .panel-body
+        h3.text-center Sign in
+        form(method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .col-sm-10.col-sm-offset-1
+            .form-group
+              label.control-label(for='email') Email
+              input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus required)
+            .form-group
+              label.control-label(for='password') Password
+              input.form-control(type='password', name='password', id='password', placeholder='Password' required)
+            .form-group
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-user
+                | Login
+              a.btn.btn-link(href='/forgot') Forgot your password?
+    p.text-center
+      a(href='/signup') Need an account?

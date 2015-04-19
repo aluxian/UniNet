@@ -1,0 +1,9 @@
+extends layout
+
+
+block content
+  script var users = !{JSON.stringify(users)}
+  input(type="text", class="search", placeholder="Search")
+    
+  ul.list
+    

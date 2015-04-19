@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='csrf-token', content=_csrf)
+    title #{title} - UniNet
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js")
+    != css('main')
+  body(ng-app='myApp')
+    block link
+      -var selected = 'Feed'; //default
+      
+    -var menu = { 'Feed': '/feed', 'Conversations': '/conversations', 'Social Events' : '/events', 'Veteran Help Center' : '/help', 'Roommate Finder' : '/roomie', 'Book Bazaar' : '/books', 'Peer Workout' : '/workout', 'POI\'s' : '/poi'};
+    
+    include partials/header
+
+    .container
+      include partials/flash
+      block content
+
+    include partials/footer
+
+    != js('application')

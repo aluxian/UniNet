@@ -1,0 +1,54 @@
+extends ../simple-layout
+
+block content
+  .login-body.container.middle-container
+    .panel.panel-default.post-card
+      .panel-body
+        h3.text-center Sign Up
+        form.form-horizontal(id='signup-form', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-group
+            label.col-sm-3.control-label(for='name') Name
+            .col-sm-7
+              input.form-control(type='text', name='name', id='name', placeholder='Full Name', autofocus, required)
+          .form-group
+            label.col-sm-3.control-label(for='email') Email
+            .col-sm-7
+              input.form-control(type='email', name='email', id='email', placeholder='Email', required)
+          .form-group
+            label.col-sm-3.control-label(for='password') Password
+            .col-sm-7
+              input.form-control(type='password', name='password', id='password', placeholder='Password', required)
+          .form-group
+            label.col-sm-3.control-label(for='confirmPassword') Confirm Password
+            .col-sm-7
+              input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required)
+          .form-group
+            label.col-sm-3.control-label(for='gender') Gender
+            .col-sm-7
+              label.radio
+                input(type='radio', name='gender', id="gender_m", value="m", required)
+                span Male
+              label.radio
+                input(type='radio', name='gender', id="gender_f", value="f", required)
+                span Female
+          .form-group
+            label.col-sm-3.control-label(for='type') Account Type
+            .col-sm-7
+              label.radio
+                input(type='radio' name='type' id='type_student' value='student' checked, required)
+                span Student
+              label.radio
+                input(type='radio' name='type' id='type_professor' value='professor', required)
+                span Professor
+          .form-group
+            label.col-sm-3.control-label(for='faculty') Faculty
+            .col-sm-7
+              select(name='faculty' id='faculty' required)
+                each faculty in faculties
+                  option(value='#{faculty._id}') #{faculty.name}
+          .form-group.post-form
+            .col-sm-offset-3.col-sm-7
+              button.btn.btn-success(type='submit')
+                i.fa.fa-user-plus
+                | Sign Up

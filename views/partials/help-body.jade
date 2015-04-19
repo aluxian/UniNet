@@ -1,0 +1,32 @@
+.feed-body
+  .panel.panel-default
+    .panel-body
+      h4 Offer as volunteer to help newcomers.
+      form.post-form.form-horizontal(action='/help' method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        fieldset
+          select.form-control(name='expertise' required)
+            each exp in ['Student Orientation Guide', 'City Guide', 'Homework Helper', 'Paid Assistant']
+              option(val='#{exp}') #{exp}
+          button.pull-right.btn.btn-success(type='submit') Submit
+
+  if offers.length > 0
+    each offer in offers
+       .panel.panel-default.post-card
+          .panel-body
+            .media
+              .media-left
+                a(href='/conversations/#{offer.author._id}')
+                  if user.profile.picture
+                    img.media-object(src='#{offer.author.profile.picture}')
+                  else
+                    img.media-object(src='#{offer.author.gravatar(60)}')
+              .media-body.media-middle
+                h4.media-heading 
+                  a(href='/conversations/#{offer.author._id}') #{offer.author.profile.name}
+                h6 #{offer.createdAt}
+                h6 #{offer.faculty.name}
+            p Offered to help as a #[b #{offer.expertise}].
+            a.pull-right.btn.btn-success(href='/conversations/#{offer.author._id}') Contact
+  else
+    p.top-offset.text-center No offers available.

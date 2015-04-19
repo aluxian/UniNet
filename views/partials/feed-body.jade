@@ -1,0 +1,29 @@
+.feed-body
+  .panel.panel-default
+    .panel-body
+      h4 Write a new post
+
+      form.post-form.form-horizontal(action='/feed' method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        fieldset
+          textarea.form-control(rows='2' id='textArea' name='body' required)
+          button.pull-right.btn.btn-success(type='submit') Submit
+      
+  if posts.length > 0
+    each post in posts
+       .panel.panel-default.post-card
+          .panel-body
+            .media
+              .media-left
+                a(href='#')
+                  if user.profile.picture
+                    img.media-object(src='#{post.author.profile.picture}')
+                  else
+                    img.media-object(src='#{post.author.gravatar(60)}')
+              .media-body.media-middle
+                h4.media-heading #{post.author.profile.name}
+                h6 #{post.createdAt}
+                h6 #{post.faculty.name}
+            p #{post.body}
+  else
+    p.top-offset.text-center No posts available.

@@ -1,0 +1,7 @@
+.side-chat.panel.panel-default
+    .panel-body
+      h4 Friends
+      ul
+        each user in friends
+          li
+            a(href='/conversations/#{user._id}') #{user.profile.name}

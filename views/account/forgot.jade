@@ -1,0 +1,20 @@
+extends ../simple-layout
+
+block content
+  .login-body.container.small-container
+    .panel.panel-default.post-card
+      .panel-body
+        h3.text-center Forgot Password
+        form(method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .col-sm-10.col-sm-offset-1
+            .form-group
+              p Enter your email address below and we will send you password reset instructions.
+              label.control-label(for='email') Email
+              input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus required)
+            .form-group
+              button.btn.btn-primary(type='submit')
+                i.fa.fa-key
+                | Reset Password
+    p.text-center
+      a(href='/login') Want to sign in?

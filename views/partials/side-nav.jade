@@ -1,0 +1,11 @@
+.side-nav.panel.panel-default
+  .panel-body
+    ul.nav.nav-pills.nav-stacked
+      each val, key in menu
+        if selected === key
+          li.active
+            a(href=val, title=key)= key
+        else
+          li
+            a(href=val, title=key)= key
+      

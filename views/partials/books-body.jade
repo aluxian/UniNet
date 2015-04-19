@@ -1,0 +1,34 @@
+.feed-body
+  .panel.panel-default
+    .panel-body
+      h4 Sell those old, useless books
+      form.post-form.form-horizontal(action='/books' method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        fieldset
+          input.form-control(type='text' name='title' placeholder='Title' required)
+          input.form-control(type='text' name='bookAuthor' placeholder='Author' required)
+          textarea.form-control(rows='2' id='textArea' name='description' placeholder='Optional description')
+          input.form-control(type='number' name='price' placeholder='Optional price')
+          button.pull-right.btn.btn-success(type='submit') Add
+
+  if books.length > 0
+    each book in books
+       .panel.panel-default.post-card
+          .panel-body
+            .media
+              .media-left
+                a(href='/conversations/#{book.author._id}')
+                  if user.profile.picture
+                    img.media-object(src='#{book.author.profile.picture}')
+                  else
+                    img.media-object(src='#{book.author.gravatar(60)}')
+              .media-body.media-middle
+                h4.media-heading 
+                  a(href='/conversations/#{book.author._id}') #{book.author.profile.name}
+                h6 #{book.createdAt}
+                h6 #{book.faculty.name}
+            p Wants to sell #[b #{book.title}] by #[b #{book.bookAuthor}].
+            
+            a.pull-right.btn.btn-success(href='/conversations/#{book.author._id}') Contact
+  else
+    p.top-offset.text-center No books available.
